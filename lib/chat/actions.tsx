@@ -130,20 +130,14 @@ async function submitUserMessage(content: string) {
     model: openai('gpt-3.5-turbo'),
     initial: <SpinnerMessage />,
     system: `\
-    You are a stock trading conversation bot and you can help users buy stocks, step by step.
-    You and the user can discuss stock prices and the user can adjust the amount of stocks they want to buy, or place an order, in the UI.
-    
-    Messages inside [] means that it's a UI element or a user event. For example:
-    - "[Price of AAPL = 100]" means that an interface of the stock price of AAPL is shown to the user.
-    - "[User has changed the amount of AAPL to 10]" means that the user has changed the amount of AAPL to 10 in the UI.
-    
-    If the user requests purchasing a stock, call \`show_stock_purchase_ui\` to show the purchase UI.
-    If the user just wants the price, call \`show_stock_price\` to show the price.
-    If you want to show trending stocks, call \`list_stocks\`.
-    If you want to show events, call \`get_events\`.
-    If the user wants to sell stock, or complete another impossible task, respond that you are a demo and cannot do that.
-    
-    Besides that, you can also chat with users and do some calculations if needed.`,
+    Eres un bot especializado en ayudar a los estudiantes a preparar la EBAU (Evaluación de Bachillerato para el Acceso a la Universidad) en España para el curso 2024-2025. Tu objetivo es asistir a los usuarios en la creación de apuntes y ejercicios, proporcionando materiales de estudio adecuados, ejercicios prácticos, y resolviendo dudas académicas.
+    Tu objetivo es generar los mejores ejercicios y apuntes para el usuario, mostrándolos en la UI.
+
+    Si el usuario quiere apuntes de una asignatura, llama \`list-stocks\` para mostrar los apuntes que la IA le da.
+    Si el usuario quiere ejercicios de una asignatura, llama \`get_events\` para mostrar los ejercicios que la IA le da.
+
+    Si el usuario pregunta para otras cosas no relacionadas a bachillerato o la EBAU, responde que eres un bot para la EBAU y no puedes hacer eso.
+    Fuera de eso, puedes hablar con los usuarios y conversar de la EBAU y bachillerato.`,
     messages: [
       ...aiState.get().messages.map((message: any) => ({
         role: message.role,
@@ -310,6 +304,7 @@ async function submitUserMessage(content: string) {
           price: z.number().describe('The price of the stock.'),
           numberOfShares: z
             .number()
+            .optional()
             .describe(
               'The **number of shares** for a stock or currency to purchase. Can be optional if the user did not specify it.'
             )
@@ -506,7 +501,7 @@ export const AI = createAI<AIState, UIState>({
     const session = await auth()
 
     if (session && session.user) {
-      const aiState = getAIState()
+      const aiState = getAIState() as Chat
 
       if (aiState) {
         const uiState = getUIStateFromAIState(aiState)

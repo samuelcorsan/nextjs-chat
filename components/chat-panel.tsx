@@ -36,24 +36,25 @@ export function ChatPanel({
 
   const exampleMessages = [
     {
-      heading: 'What are the',
-      subheading: 'trending memecoins today?',
-      message: `What are the trending memecoins today?`
+      heading: 'Dame unos apuntes',
+      subheading: 'de física y química',
+      message: `Quiero unos apuntes de física y química para estudiar.`
     },
     {
-      heading: 'What is the price of',
-      subheading: '$DOGE right now?',
-      message: 'What is the price of $DOGE right now?'
+      heading: 'Dame ejercicios tipo test',
+      subheading: 'de lengua castellana y literatura.',
+      message:
+        'Quiero que me generes ejercicios tipo test de lengua castellana y literatura para estudiar.'
     },
     {
-      heading: 'I would like to buy',
-      subheading: '42 $DOGE',
-      message: `I would like to buy 42 $DOGE`
+      heading: 'Generame apuntes de',
+      subheading: 'álgebra',
+      message: `Quiero que me generes ejercicios de la parte de álgebra de la asignatura de matemáticas.`
     },
     {
-      heading: 'What are some',
-      subheading: `recent events about $DOGE?`,
-      message: `What are some recent events about $DOGE?`
+      heading: 'Generame apuntes de',
+      subheading: `la fauna marina.`,
+      message: `Quiero que me generes apuntes de la fauna marina de la asignatura de biología.`
     }
   ]
 
@@ -93,7 +94,7 @@ export function ChatPanel({
                 }}
               >
                 <div className="text-sm font-semibold">{example.heading}</div>
-                <div className="text-sm text-zinc-600">
+                <div className="text-sm text-zinc-400">
                   {example.subheading}
                 </div>
               </div>
