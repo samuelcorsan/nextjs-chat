@@ -47,7 +47,7 @@ export function ChatPanel({
         'Quiero que me generes ejercicios tipo test de lengua castellana y literatura para estudiar.'
     },
     {
-      heading: 'Generame apuntes de',
+      heading: 'Generame ejercicios de',
       subheading: 'álgebra',
       message: `Quiero que me generes ejercicios de la parte de álgebra de la asignatura de matemáticas.`
     },
