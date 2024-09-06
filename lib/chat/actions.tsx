@@ -35,6 +35,16 @@ type Exercise = {
   answer: string
 }
 
+type Subtopic = {
+  title: string;
+  content: string;
+};
+
+type Topic = {
+  title: string;
+  subtopics: Subtopic[];
+};
+
 type AIState = {
   chatId: string
   messages: Message[]
@@ -207,16 +217,19 @@ Recuerda: Tu objetivo es proporcionar apuntes completos, precisos y útiles que 
       return textNode
     },
     tools: {
-      listNotes: {
-        description: 'Generate structured notes for a specific subject.',
-        parameters: z.object({
-          subject: z.string().describe('The subject for which to generate notes'),
-          topics: z.array(z.object({
-            title: z.string().describe('The title of the main topic'),
-            subtopics: z.array(z.string()).describe('List of subtopics for each main topic')
-          }))
-        }),
-        generate: async function* ({ subject, topics }) {
+          listNotes: {
+            description: 'Generate structured notes for a specific subject.',
+            parameters: z.object({
+              subject: z.string().describe('The subject for which to generate notes'),
+              topics: z.array(z.object({
+                title: z.string().describe('The title of the main topic'),
+                subtopics: z.array(z.object({
+                  title: z.string().describe('The title of the subtopic'),
+                  content: z.string().describe('The content of the topic')
+                })).describe('List of subtopics for each main topic')
+              }))
+            }),
+            generate: async function* ({ subject, topics }) {
           yield (
             <BotCard>
               <NotesSkeleton />
